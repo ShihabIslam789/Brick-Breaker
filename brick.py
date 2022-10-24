@@ -52,4 +52,20 @@ class Ball:
 
     def draw(self, win):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
+        
+    class Brick:
+    def __init__(self, x, y, width, height, health, colors):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.health = health
+        self.max_health = health
+        self.colors = colors
+        self.color = colors[0]
+
+    def draw(self, win):
+        pygame.draw.rect(
+            win, self.color, (self.x, self.y, self.width, self.height))
+
 
