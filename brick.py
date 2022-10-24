@@ -30,3 +30,16 @@ class Paddle:
 
     def move(self, direction=1):
         self.x = self.x + self.VEL * direction
+
+class Ball:
+    VEL = 5
+
+    def __init__(self, x, y, radius, color):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.color = color
+        self.x_vel = 0
+        self.y_vel = -self.VEL
+        
+   
