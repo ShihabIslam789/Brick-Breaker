@@ -90,3 +90,17 @@ class Ball:
         # 't' is a value between 0.0 and 1.0
         # this is a naive interpolation
         return tuple(int(a + (b - a) * t) for a, b in zip(color_a, color_b))
+    
+    def draw(win, paddle, ball, bricks, lives):
+    win.fill("white")
+    paddle.draw(win)
+    ball.draw(win)
+
+    for brick in bricks:
+        brick.draw(win)
+
+    lives_text = LIVES_FONT.render(f"Lives: {lives}", 1, "black")
+    win.blit(lives_text, (10, HEIGHT - lives_text.get_height() - 10))
+
+    pygame.display.update()
+
