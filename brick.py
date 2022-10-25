@@ -103,4 +103,43 @@ class Ball:
     win.blit(lives_text, (10, HEIGHT - lives_text.get_height() - 10))
 
     pygame.display.update()
+    
+    
+def ball_collision(ball):
+    if ball.x - BALL_RADIUS <= 0 or ball.x + BALL_RADIUS >= WIDTH:
+        ball.set_vel(ball.x_vel * -1, ball.y_vel)
+    if ball.y + BALL_RADIUS >= HEIGHT or ball.y - BALL_RADIUS <= 0:
+        ball.set_vel(ball.x_vel, ball.y_vel * -1)
 
+
+def ball_paddle_collision(ball, paddle):
+    if not (ball.x <= paddle.x + paddle.width and ball.x >= paddle.x):
+        return
+    if not (ball.y + ball.radius >= paddle.y):
+        return
+
+    paddle_center = paddle.x + paddle.width/2
+    distance_to_center = ball.x - paddle_center
+
+    percent_width = distance_to_center / paddle.width
+    angle = percent_width * 90
+    angle_radians = math.radians(angle)
+
+    x_vel = math.sin(angle_radians) * ball.VEL
+    y_vel = math.cos(angle_radians) * ball.VEL * -1
+
+    ball.set_vel(x_vel, y_vel)
+
+def generate_bricks(rows, cols):
+    gap = 2
+    brick_width = WIDTH // cols - gap
+    brick_height = 20
+
+    bricks = []
+    for row in range(rows):
+        for col in range(cols):
+            brick = Brick(col * brick_width + gap * col, row * brick_height +
+                          gap * row, brick_width, brick_height, 2, [(0, 255, 0), (255, 0, 0)])
+            bricks.append(brick)
+
+    return bricks
