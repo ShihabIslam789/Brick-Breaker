@@ -182,3 +182,40 @@ def display_text(text):
             paddle.move(-1)
         if keys[pygame.K_RIGHT] and paddle.x + paddle.width + paddle.VEL <= WIDTH:
             paddle.move(1)
+ball.move()
+        ball_collision(ball)
+        ball_paddle_collision(ball, paddle)
+
+        for brick in bricks[:]:
+            brick.collide(ball)
+
+            if brick.health <= 0:
+                bricks.remove(brick)
+
+        # lives check
+        if ball.y + ball.radius >= HEIGHT:
+            lives -= 1
+            ball.x = paddle.x + paddle.width/2
+            ball.y = paddle.y - BALL_RADIUS
+            ball.set_vel(0, ball.VEL * -1)
+
+        if lives <= 0:
+            bricks = generate_bricks(3, 10)
+            lives = 3
+            reset()
+            display_text("You Lost!")
+
+        if len(bricks) == 0:
+            bricks = generate_bricks(3, 10)
+            lives = 3
+            reset()
+            display_text("You Won!")
+
+        draw(win, paddle, ball, bricks, lives)
+
+    pygame.quit()
+    quit()
+
+
+if __name__ == "__main__":
+    main()
