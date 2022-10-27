@@ -160,4 +160,25 @@ def main():
         paddle.y = paddle_y
         ball.x = WIDTH/2
         ball.y = paddle_y - BALL_RADIUS
+def display_text(text):
+        text_render = LIVES_FONT.render(text, 1, "red")
+        win.blit(text_render, (WIDTH/2 - text_render.get_width() /
+                               2, HEIGHT/2 - text_render.get_height()/2))
+        pygame.display.update()
+        pygame.time.delay(3000)
 
+    run = True
+    while run:
+        clock.tick(FPS)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                break
+
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_LEFT] and paddle.x - paddle.VEL >= 0:
+            paddle.move(-1)
+        if keys[pygame.K_RIGHT] and paddle.x + paddle.width + paddle.VEL <= WIDTH:
+            paddle.move(1)
