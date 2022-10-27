@@ -143,3 +143,21 @@ def generate_bricks(rows, cols):
             bricks.append(brick)
 
     return bricks
+
+def main():
+    clock = pygame.time.Clock()
+
+    paddle_x = WIDTH/2 - PADDLE_WIDTH/2
+    paddle_y = HEIGHT - PADDLE_HEIGHT - 5
+    paddle = Paddle(paddle_x, paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, "black")
+    ball = Ball(WIDTH/2, paddle_y - BALL_RADIUS, BALL_RADIUS, "black")
+
+    bricks = generate_bricks(3, 10)
+    lives = 3
+
+    def reset():
+        paddle.x = paddle_x
+        paddle.y = paddle_y
+        ball.x = WIDTH/2
+        ball.y = paddle_y - BALL_RADIUS
+
